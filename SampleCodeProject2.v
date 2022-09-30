@@ -1,11 +1,35 @@
 //-------------------------------------------------
 //
 // Sample Testbench and Breadbaord
-
 //
 //-------------------------------------------------
 
+/*
+Hello everyone here's the sample code. I went ahead and copied and pasted all of the sample code onto one document
+In order to run this verilog prorgam is it very simple. On your terminal you will go ahead and write the following commands.
+Some things to note, make sure this file is saved in the same bin as your verilog and you should be fine!
+You'd type 'iverilog *.v' ↵  
+Then 'vvp a.out' ↵ 
+This will then look like this:
 
+C:\iverilog\bin>iverilog *.v
+
+C:\iverilog\bin>vvp a.out
+
+[   B][   A][  OP][       C][ E];
+[0010][0010][0100][00000100][00]:Addition;
+[0010][0100][0101][11111110][00]:Subtraction;
+[0010][0010][0110][00000100][00]:Multipy;
+[0010][0010][0111][00000001][00]:Divide;
+[0010][0010][1000][00000000][00]:Modulus;
+[0100][0100][0100][11111000][01]:Addition with Error;
+[1100][0110][0101][00000110][01]:Subtraction with Error;
+[0100][0000][0111][xxxxxxxx][10]:Division with Error;
+[0100][0000][1000][xxxxxxxx][10]:Modulus with Error;
+[0100][0000][0110][00000000][00]:Multiply with 0;
+main.v:311: $finish called at 102 (1s)
+
+*/
 
 //=================================================================
 //
