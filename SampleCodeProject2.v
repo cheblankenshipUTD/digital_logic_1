@@ -301,9 +301,6 @@ module testbench();
 	$write(":Multiply with 0");
 	$display(";");
 	//---------------------------------		
- 
-
-
 
 	$finish;
 	end
@@ -424,22 +421,8 @@ dataC=0;
 $display("%b+%b+%b=%b:%b",dataA,dataB,dataC,carry,result);
 
 end
-
 endmodule;
-
-iverilog 4BitMult.v
-
-iverilog 4BitMult.v 4BitAdd.v 1BitAdd.v
-
-iverilog *.v 
-
-vvp a.out
-
-============
-using *.v will makefile all of these at the same time WOW
 */
-
-
 
 
 //-------------------------------------------------
@@ -452,7 +435,7 @@ using *.v will makefile all of these at the same time WOW
 //
 //-------------------------------------------------
 
-//this file extends over to the 1bitAdd.v file
+//This file extends over to the 1bitAdd.v file
 
 module FourBitAddSub(inputA,inputB,mode,sum,carry,overflow);
     input [3:0] inputA;
@@ -480,7 +463,8 @@ module FourBitAddSub(inputA,inputB,mode,sum,carry,overflow);
 	FullAdder FA0(inputA[0],b0,  c0,c1,sum[0]);
 	FullAdder FA1(inputA[1],b1,  c1,c2,sum[1]);
 	FullAdder FA2(inputA[2],b2,  c2,c3,sum[2]);
-	FullAdder FA3(inputA[3],b3,  c3,c4,sum[3]); //16 more rows
+	FullAdder FA3(inputA[3],b3,  c3,c4,sum[3]); 
+	//16 more rows
 
 	assign sum[4]=sum[3];
 	assign sum[5]=sum[3];
@@ -591,14 +575,7 @@ $write("%b-%b=[%b];",dataA,dataB,result);
  
 $display("err=%b",err);
 
-
-
-
 end
-
-
-
-
 endmodule
 */
 
@@ -632,7 +609,7 @@ quotient=numerator/denominator;
 quotient[4]=quotient[3];
 quotient[5]=quotient[3];
 quotient[6]=quotient[3];
-quotient[7]=quotient[3]; //16 leading nits
+quotient[7]=quotient[3]; //16 leading bits
 error=~(denominator[3]|denominator[2]|denominator[1]|denominator[0]);
 end
 
@@ -726,10 +703,7 @@ end
 endmodule
 */
  
- 
- 
- 
- //-------------------------------------------------
+//-------------------------------------------------
 //
 // Sample 4-Bit Multiplier. No padding needed.
 // Eric William Becker
@@ -789,7 +763,7 @@ always@(*)
 begin
 
 
-//this is where you can write a program and use its output and use that to finish off the little guy
+//Ihis is where you can write a program and use its output and use that to finish off the little guy
   
   Augend0={     1'b0,A[0]&B[3],A[0]&B[2],A[0]&B[1]}; //A[0] by B
    Adend0={A[1]&B[3],A[1]&B[2],A[1]&B[1],A[1]&B[0]}; //A[1] by B
@@ -814,7 +788,7 @@ begin
   C[5] = Sum2[2];//From Adder2
   C[6] = Sum2[3];//From Adder2
   C[7] = Carry2 ;//From Adder2
-	// goes to C[31]
+	// This will go to C[31]
  end
 endmodule
 
@@ -898,7 +872,8 @@ module Dec4x16(binary,onehot);
 	assign onehot[12]= binary[3]& binary[2]&~binary[1]&~binary[0];
 	assign onehot[13]= binary[3]& binary[2]&~binary[1]& binary[0];
 	assign onehot[14]= binary[3]& binary[2]& binary[1]&~binary[0];
-	assign onehot[15]= binary[3]& binary[2]& binary[1]& binary[0]; //this will work as is, should not need to change
+	assign onehot[15]= binary[3]& binary[2]& binary[1]& binary[0];
+	//This will work as is, should not need to change
 	
 	
 endmodule
