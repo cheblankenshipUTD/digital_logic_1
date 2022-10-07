@@ -606,58 +606,79 @@ endmodule
 
 
 //-------------------------------------------------
-//
-// Sample Behavioral Divider with padded 4 bits.
-// Eric William Becker
-// September 25, 2022
-//
-// For my students this semester.
-//
+/*
+SixteenBitDivision
+Completed by: Salem Nassar
+*/
 //-------------------------------------------------
 
 
-module FourBitDivision(numerator,denominator,quotient,error);
-input [3:0] numerator;
-input [3:0] denominator;
-output [7:0] quotient;
+module SixteenBitDivision(numerator,denominator,quotient,error);
+// changed inputs to 16 bits
+input [15:0] numerator;
+input [15:0] denominator;
+// changes outputs to 32 bits
+output [31:0] quotient;
 output error;
 
-wire [3:0] numerator; //16 down to 0
-wire [3:0] denominator;
-reg [7:0] quotient; //31 down to 0
+// changed wires to 16 bits
+wire [15:0] numerator;
+wire [15:0] denominator;
+// changes registers to 32 bits
+reg [31:0] quotient;
 reg error;
 
 always @(numerator,denominator)
 begin
 quotient=numerator/denominator;
-quotient[4]=quotient[3];
-quotient[5]=quotient[3];
-quotient[6]=quotient[3];
-quotient[7]=quotient[3]; //16 leading bits
-error=~(denominator[3]|denominator[2]|denominator[1]|denominator[0]);
+// changed to match sample code but with new bit ammounts
+quotient[16]=quotient[15];
+quotient[17]=quotient[15];
+quotient[18]=quotient[15];
+quotient[19]=quotient[15];
+quotient[20]=quotient[15];
+quotient[21]=quotient[15];
+quotient[22]=quotient[15];
+quotient[23]=quotient[15];
+quotient[24]=quotient[15];
+quotient[25]=quotient[15];
+quotient[26]=quotient[15];
+quotient[27]=quotient[15];
+quotient[28]=quotient[15];
+quotient[29]=quotient[15];
+quotient[30]=quotient[15];
+quotient[31]=quotient[15];
+
+// checks for divide by zero but with 16 bits
+error=~(denominator[0]|denominator[1]|denominator[2]|denominator[3]|denominator[4]|denominator[5]|denominator[6]|denominator[7]|denominator[8]|denominator[9]|denominator[10]|denominator[11]|denominator[12]|denominator[13]|denominator[14]|denominator[15]);
 end
 
-endmodule;
+endmodule
 
 
 /*
 module testbench();
 
-reg [3:0]inputA;
-reg [3:0]inputB;
-wire [3:0] quotient;
+// changed inputs to 16 bits
+reg [15:0]inputA;
+reg [15:0]inputB;
+// changes output to 32 bits
+wire [31:0] quotient;
 wire error;
 
 FourBitDivision D40(inputB,inputA,quotient,error);
 
 initial begin
-	inputB=4'b1111;
-	inputA=4'b0010;
+	
+	// changed inputs to 16 bit binary numbers
+	inputB=16'b0101101011001111;
+	inputA=16'b0000101011000010;
 	#60;
 	$display("%d,%d,%d,%d",inputB,inputA,quotient,error);
 
-	inputB=4'b1111;
-	inputA=4'b0000;
+	// changed inputs to 16 bit binary numbers
+	inputB=16'b1111111111111111;
+	inputA=16'b0000;
 	#60;
 	$display("%d,%d,%d,%d",inputB,inputA,quotient,error);
 
@@ -667,59 +688,76 @@ endmodule
 
 
 //-------------------------------------------------
-//
-// Sample Behavioral Modulus with padded 4-bits
-// Eric William Becker
-// September 25, 2022
-//
-// For my students this semester.
-//
+/*
+SixteenBitModulus
+Completed by: Salem Nassar
+*/
 //-------------------------------------------------
 
 
-module FourBitModulus(numerator,denominator,modulus,error);
-input [3:0] numerator;
-input [3:0] denominator;
-output [7:0] modulus;
+module SixteenBitModulus(numerator,denominator,modulus,error);
+// changed inputs to 16 bits
+input [15:0] numerator;
+input [15:0] denominator;
+// changed outputs to 32 bits
+output [31:0] modulus;
 output error;
 
-wire [3:0] numerator;
-wire [3:0] denominator;
-reg [7:0] modulus;
+// changed wires to 16 bits
+wire [15:0] numerator;
+wire [15:0] denominator;
+//changed register to 32 bits
+reg [31:0] modulus;
 reg error;
 
 always @(numerator,denominator)
 begin
-modulus=numerator%denominator; //behavioral
-modulus[4]=modulus[3];
-modulus[5]=modulus[3];
-modulus[6]=modulus[3];
-modulus[7]=modulus[3];
+modulus=numerator%denominator;
+// adjusted to match sample code but with new bit ammounts
+modulus[16]=modulus[15];
+modulus[16]=modulus[15];
+modulus[18]=modulus[15];
+modulus[19]=modulus[15];
+modulus[20]=modulus[15];
+modulus[21]=modulus[15];
+modulus[22]=modulus[15];
+modulus[23]=modulus[15];
+modulus[24]=modulus[15];
+modulus[25]=modulus[15];
+modulus[26]=modulus[15];
+modulus[27]=modulus[15];
+modulus[28]=modulus[15];
+modulus[29]=modulus[15];
+modulus[30]=modulus[15];
+modulus[31]=modulus[15];
 
-error=~(denominator[3]|denominator[2]|denominator[1]|denominator[0]);
+// checks for divide by zero but with 16 bits
+error=~(denominator[0]|denominator[1]|denominator[2]|denominator[3]|denominator[4]|denominator[5]|denominator[6]|denominator[7]|denominator[8]|denominator[9]|denominator[10]|denominator[11]|denominator[12]|denominator[13]|denominator[14]|denominator[15]);
 end
-
 endmodule
-
 
 /*
 module testbench();
-
-reg [3:0]inputA;
-reg [3:0]inputB;
-wire [3:0] modulus;
+// change inputs to 16 bits
+reg [15:0]inputA;
+reg [15:0]inputB;
+// change output to 32 bits
+wire [31:0] modulus;
 wire error;
 
 FourBitModulus M40(inputB,inputA,modulus,error);
 
 initial begin
-	inputB=4'b1111;
-	inputA=4'b0010;
+
+	// change inputs to 16 bit binary numbers
+	inputB=16'b1111010111000010;
+	inputA=16'b0000101111011111;
 	#60;
 	$display("%d,%d,%d,%d",inputB,inputA,modulus,error);
-
-	inputB=4'b1111;
-	inputA=4'b0000;
+	
+	// change inputs to 16 bit binary numbers
+	inputB=16'b1111111100101111;
+	inputA=16'b0000000000000000;
 	#60;
 	$display("%d,%d,%d,%d",inputB,inputA,modulus,error);
 
