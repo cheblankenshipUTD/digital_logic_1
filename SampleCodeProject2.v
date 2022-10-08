@@ -42,20 +42,20 @@ module breadboard(A,B,C,opcode,error);
 // Parameter Definitions
 //
 //========================================================
-input [3:0] A;
-input [3:0] B;
-input [3:0] opcode;
-wire clk;
-wire rst;
-wire [3:0] A;
-wire [3:0] B;
-wire [3:0] opcode;
+	input [15:0] A; //A will now recieve an input of 16 bits [3:0] → [15:0]
+	input [15:0] B; //B will now recieve an input of 16 bits [3:0] → [15:0]
+	input [3:0] opcode; //opcode will remain the same 
+	wire clk;
+	wire rst;
+	wire [15:0] A;
+	wire [15:0] B;
+	wire [3:0] opcode;
 
-output [1:0]error;
-reg [1:0]error;
+	output [1:0]error;
+	reg [1:0]error;
 //----------------------------------
-output [7:0] C;
-reg [7:0] C;
+	output [31:0] C; //output will now become 32 bits, [7:0] → [31:0]
+	reg [31:0] C;	//likewise reg will 32 bits
 //----------------------------------
 
 
@@ -66,8 +66,8 @@ reg [7:0] C;
 //========================================================
 wire [15:0][7:0]channels; //16 and 8 wide
 wire [15:0] select; //one hot select
-wire [7:0] b;
-wire [7:0] unknown;
+	wire [31:0] b;
+	wire [31:0] unknown;
 
 Dec4x16 dec1(opcode,select); //convert to a 16 bit one hot number
 StructMux mux1(channels,select,b); //behavior (built in operations) or structurtally(gates), 
@@ -77,13 +77,14 @@ StructMux mux1(channels,select,b); //behavior (built in operations) or structurt
 // OPERATIONS
 //
 //=======================================================
-wire [7:0] outputADDSUB;
-wire ADDerror;
-wire [7:0] outputMUL;
-wire [7:0] outputDIV;
-wire DIVerror;
-wire [7:0] outputMOD;
-wire MODerror;
+	//these wires will now reflect an OUTPUT of 32 bits [7:0] → [31:0]
+	wire [31:0] outputADDSUB;
+	wire ADDerror;
+	wire [31:0] outputMUL;
+	wire [31:0] outputDIV;
+	wire DIVerror;
+	wire [31:0] outputMOD;
+	wire MODerror;
 //above are all outputs
 
 FourBitAddSub     add1(B,A,modeSUB,outputADDSUB,Carry,ADDerror); //B + A 
@@ -116,7 +117,7 @@ assign channels[ 0]=unknown;
 assign channels[ 1]=unknown;
 assign channels[ 2]=unknown;
 assign channels[ 3]=unknown;
-assign channels[ 4]=outputADDSUB;
+assign channels[ 4]=outputADDSUB; //as of now this reflects our diagram for the MUX
 assign channels[ 5]=outputADDSUB;
 assign channels[ 6]=outputMUL;
 assign channels[ 7]=outputDIV;
@@ -161,11 +162,11 @@ module testbench();
 //Local Variables
 //
 //====================================================
-   reg  [3:0] inputB;
-   reg  [3:0] inputA;
-   reg  [3:0] opcode;
-   wire [7:0] outputC;
-   wire [1:0] error;
+	reg  [15:0] inputB;  //our inputB will now accept 16 bits, [3:0] → [15:0]
+	reg  [15:0] inputA; //our inputA will now accept 16 bits, [3:0] → [15:0]
+   	reg  [3:0] opcode;
+	wire [31:0] outputC; //our outputC will now accept 32 bits, [7:0] → [31:0]
+   	wire [1:0] error;
    
 //====================================================
 //
@@ -192,10 +193,10 @@ module testbench();
 	$write("[ E]");
 	$display(";");
 	//---------------------------------
-	inputB=4'b0010;
-	inputA=4'b0010;
+	inputB=4'b0010001000100010; // we will modify this to reflect our 16 bit input
+	inputA=4'b0010001000100010; // we will modify this to reflect our 16 bit input
 	opcode=4'b0100;//ADD
-	#10	
+	#100	
 
 	$write("[%4b]",inputB);
 	$write("[%4b]",inputA);
@@ -208,7 +209,7 @@ module testbench();
 	inputB=4'b0010;
 	inputA=4'b0100;
 	opcode=4'b0101;//SUB
-	#10	
+	#100	
 
 	$write("[%4b]",inputB);
 	$write("[%4b]",inputA);
@@ -221,7 +222,7 @@ module testbench();
 	inputB=4'b0010;
 	inputA=4'b0010;
 	opcode=4'b0110;//MUL
-	#10	
+	#100	
 
 	$write("[%4b]",inputB);
 	$write("[%4b]",inputA);
@@ -234,7 +235,7 @@ module testbench();
 	inputB=4'b0010;	
 	inputA=4'b0010;
 	opcode=4'b0111;//DIV
-	#10	
+	#100	
 
 	$write("[%4b]",inputB);
 	$write("[%4b]",inputA);
@@ -247,7 +248,7 @@ module testbench();
 	inputB=4'b0010;	
 	inputA=4'b0010;
 	opcode=4'b1000;//MOD
-	#10	
+	#100	
 
 	$write("[%4b]",inputB);
 	$write("[%4b]",inputA);
@@ -260,7 +261,7 @@ module testbench();
 	inputB=4'b0100;
 	inputA=4'b0100;
 	opcode=4'b0100;//Addition with Error
-	#10	
+	#100	
 
 	$write("[%4b]",inputB);
 	$write("[%4b]",inputA);
@@ -274,7 +275,7 @@ module testbench();
 	inputB=4'b1100;	
 	inputA=4'b0110;
 	opcode=4'b0101;//Subtraction with Error
-	#10	
+	#100	
 
 	$write("[%4b]",inputB);
 	$write("[%4b]",inputA);
@@ -288,7 +289,7 @@ module testbench();
 	inputB=4'b0100;
 	inputA=4'b0000;
 	opcode=4'b0111;//Division with Error
-	#10	
+	#100	
 
 	$write("[%4b]",inputB);
 	$write("[%4b]",inputA);
@@ -302,7 +303,7 @@ module testbench();
 	inputB=4'b0100;
 	inputA=4'b0000;
 	opcode=4'b1000;//Modulus with Error
-	#10	
+	#100	
 	$write("[%4b]",inputB);
 	$write("[%4b]",inputA);
 	$write("[%4b]",opcode);
@@ -315,7 +316,7 @@ module testbench();
 	inputB=4'b0100;	
 	inputA=4'b0000;
 	opcode=4'b0110;//Multiply with Zero
-	#10	
+	#100	
 	
 	$write("[%4b]",inputB);
 	$write("[%4b]",inputA);
@@ -476,11 +477,11 @@ module SixTeenBitAddSub(inputA,inputB,mode,sum,carry,overflow);
 	wire c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16; //Carry Interfaces
 	
 	assign c0=mode;//Mode=0, Addition; Mode=1, Subtraction
-	
-    assign b0 = inputB[0] ^ mode;//Flip the Bit if Subtraction
-    assign b1 = inputB[1] ^ mode;//Flip the Bit if Subtraction
-    assign b2 = inputB[2] ^ mode;//Flip the Bit if Subtraction
-    assign b3 = inputB[3] ^ mode;//Flip the Bit if Subtraction
+
+	assign b0 = inputB[0] ^ mode;//Flip the Bit if Subtraction
+	assign b1 = inputB[1] ^ mode;//Flip the Bit if Subtraction
+	assign b2 = inputB[2] ^ mode;//Flip the Bit if Subtraction
+	assign b3 = inputB[3] ^ mode;//Flip the Bit if Subtraction
 	assign b4 = inputB[4] ^ mode;//Flip the Bit if Subtraction
 	assign b5 = inputB[5] ^ mode;//Flip the Bit if Subtraction
 	assign b6 = inputB[6] ^ mode;//Flip the Bit if Subtraction
