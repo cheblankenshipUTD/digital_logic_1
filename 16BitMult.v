@@ -128,18 +128,18 @@ FourBitFullAdder add2(Augend2,Adend2,1'b0,Carry2,Sum2);
 FourBitFullAdder add3(Augend3,Adend3,1'b0,Carry3,Sum3); //this is refered to the 4bitAdd.v file
 // im pretty sure we have to do up until add7 to make it 8 bits
 // then if my logic is correct, in order to make this 16 bits, we will do up to add15
-FourBitFullAdder add4(Augend 4,Adend4,1'b0,Carry4,Sum4);
-FourBitFullAdder add5(Augend 5,Adend5,1'b0,Carry5,Sum5);
-FourBitFullAdder add6(Augend 6,Adend6,1'b0,Carry6,Sum6);
-FourBitFullAdder add7(Augend 7,Adend7,1'b0,Carry7,Sum7);
-FourBitFullAdder add8(Augend 8,Adend8,1'b0,Carry8,Sum8);
-FourBitFullAdder add9(Augend 9,Adend9,1'b0,Carry9,Sum9);
-FourBitFullAdder add10(Augend 10,Adend10,1'b0,Carry10,Sum10);
-FourBitFullAdder add11(Augend 11,Adend11,1'b0,Carry11,Sum11);
-FourBitFullAdder add12(Augend 12,Adend12,1'b0,Carry12,Sum12);
-FourBitFullAdder add13(Augend 13,Adend13,1'b0,Carry13,Sum13);
-FourBitFullAdder add14(Augend 14,Adend14,1'b0,Carry14,Sum14);
-FourBitFullAdder add15(Augend 15,Adend15,1'b0,Carry15,Sum15);
+FourBitFullAdder add4(Augend4,Adend4,1'b0,Carry4,Sum4);
+FourBitFullAdder add5(Augend5,Adend5,1'b0,Carry5,Sum5);
+FourBitFullAdder add6(Augend6,Adend6,1'b0,Carry6,Sum6);
+FourBitFullAdder add7(Augend7,Adend7,1'b0,Carry7,Sum7);
+FourBitFullAdder add8(Augend8,Adend8,1'b0,Carry8,Sum8);
+FourBitFullAdder add9(Augend9,Adend9,1'b0,Carry9,Sum9);
+FourBitFullAdder add10(Augend10,Adend10,1'b0,Carry10,Sum10);
+FourBitFullAdder add11(Augend11,Adend11,1'b0,Carry11,Sum11);
+FourBitFullAdder add12(Augend12,Adend12,1'b0,Carry12,Sum12);
+FourBitFullAdder add13(Augend13,Adend13,1'b0,Carry13,Sum13);
+FourBitFullAdder add14(Augend14,Adend14,1'b0,Carry14,Sum14);
+FourBitFullAdder add15(Augend15,Adend15,1'b0,Carry15,Sum15);
 
 
 
