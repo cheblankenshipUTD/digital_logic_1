@@ -162,7 +162,7 @@ endmodule
 //Breadboard
 //
 //=================================================================
-module breadboard(A,B,C,opcode,error);
+module breadboard(clk,rst,A,B,C,opcode,error);
 //=======================================================
 //
 // Parameter Definitions
@@ -183,8 +183,8 @@ module breadboard(A,B,C,opcode,error);
 	output [1:0]error;
 	reg [1:0]error;
 //----------------------------------
-	output [32:0] C;
-	reg [32:0] C;
+	output [31:0] C;
+	reg [31:0] C;
 //----------------------------------
 
 
@@ -290,7 +290,7 @@ module breadboard(A,B,C,opcode,error);
 	assign channels[ 3]=unknown;
 	assign channels[ 4]=outputADDSUB;	//Addition Arith Op
 	assign channels[ 5]=outputADDSUB;	//Subtraction Arith Op
-	assign channels[ 6]=outputMUL;		//Multiplcation Arirt Op
+	assign channels[ 6]=outputMUL;		//Multiplcation Arirth Op
 	assign channels[ 7]=outputDIV;		//Divsion (Behavioral) Arirth Op
 	assign channels[ 8]=outputMOD;		//Modulus (Behavioral) Arirth Op	
 	assign channels[ 9]=outputAND;		//AND Logic Op
@@ -308,30 +308,41 @@ module breadboard(A,B,C,opcode,error);
 //====================================================
 	always@(*)
 		begin
-			modeADD=~opcode[3]& opcode[2]&~opcode[1]&~opcode[0];//0100, Channel 4
-			modeSUB=~opcode[3]& opcode[2]&~opcode[1]& opcode[0];//0101, Channel 5
-			modeDIV=~opcode[3]& opcode[2]& opcode[1]& opcode[0];//0111, Channel 7
-			modeMOD= opcode[3]&~opcode[2]&~opcode[1]&~opcode[0];//1000, Channel 8
-			C=b; //Just a jumper
-			error[0]=ADDerror&(modeADD|modeSUB);//Only show overflow if in add or subtract operation
-			error[1]=(DIVerror|MODerror)&(modeDIV|modeMOD);//only show divide by zero if in division or modulus operation
-
-
+		
 			regA= A;
 			regB= cur[15:0]; 
 			//to get the lower two bytes...
 			//high bytes=cur[31:16]
 			//low bytes=cur[15:0]
-
-			//error=Div0 | Overflow;//Register=wire.
-		 
-		 if (opcode==4'b1)
+			
+			if (opcode==4'b1)
 			 begin
 			   error=0;
 			 end
 
-		  //C=b;//Might be better if C = Cur value....
-		  next=b;
+		  
+		  
+		 C=b;//Might be better if C = Cur value....
+		 next=b;
+			
+			
+			modeADD=~opcode[3]& opcode[2]&~opcode[1]&~opcode[0];//0100, Channel 4
+			modeSUB=~opcode[3]& opcode[2]&~opcode[1]& opcode[0];//0101, Channel 5
+			modeDIV=~opcode[3]& opcode[2]& opcode[1]& opcode[0];//0111, Channel 7
+			modeMOD= opcode[3]&~opcode[2]&~opcode[1]&~opcode[0];//1000, Channel 8
+			//C=b; //Just a jumper
+			//C=b; //Just a jumper
+			
+			error[0]=ADDerror&(modeADD|modeSUB);//Only show overflow if in add or subtract operation
+			error[1]=(DIVerror|MODerror)&(modeDIV|modeMOD);//only show divide by zero if in division or modulus operation
+
+
+			
+
+			//error=Div0 | Overflow;//Register=wire.
+		 
+		 
+
 		 //assign C=b;//Might be better if C = Cur value....
 		 //assign next=b;
 		 
@@ -354,20 +365,21 @@ module testbench();
 //Local Variables
 //
 //====================================================
-   reg  [15:0] inputB;
-   reg  [15:0] inputA;
-   reg  [3:0] opcode;
-   wire [32:0] outputC;
-   wire [1:0] error;
    reg clk;
    reg rst;
+   reg  [15:0] inputB;
+   reg  [15:0] inputA;
+   wire [31:0] outputC;
+   reg  [3:0] opcode;
+   wire [1:0] error;
+
    
 //====================================================
 //
 // Create Breadboard
 //
 //====================================================
-	breadboard bb8(inputA,inputB,outputC,opcode,error);
+	breadboard bb8(clk,rst,inputA,inputB,outputC,opcode,error);
 
 //=================================================
  //CLOCK Thread
@@ -585,8 +597,12 @@ module testbench();
 	opcode=4'b1010;//OR
 	#10;		
 	
-	
 	inputA=16'b1111111111111111;
+	opcode=4'b1010;//OR
+	#10;
+	
+	
+	inputA=16'b1111111100000000;
 	opcode=4'b1011;//XOR
 	#10;
 	//---------------------------------	
@@ -641,7 +657,7 @@ module testbench();
 	
 	
 	inputA=16'b1111111111111111;
-	opcode=4'b1010;//OR
+	opcode=4'b1110;//NOR  channel 14
 	#10;
 	
 	
