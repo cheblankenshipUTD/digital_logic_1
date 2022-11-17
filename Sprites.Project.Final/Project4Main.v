@@ -209,8 +209,10 @@ module testbench();
   
 	reg [15:0] base;
 	reg [15:0] height;
-   reg [15:0] side1;
-   reg [15:0] side2;
+   	reg [15:0] side1;
+   	reg [15:0] side2;
+	reg [15:0] base1;
+	reg [15:0] base2;
 //====================================================
 //
 // Create Breadboard
@@ -265,7 +267,7 @@ module testbench();
 	
 	$display();
 	$display("----------------------------------------");
-	$display("Multiply by Height");
+	$display("Multiply By Height");
 	clk=0;inputA=height ; opcode=4'b0110;#5;//Multiply by R 
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=height ; opcode=4'b0110;#5;//Multiply by R 
@@ -273,7 +275,7 @@ module testbench();
 	
 	$display();
 	$display("----------------------------------------");
-	$display("Divide by 2");
+	$display("Divide By 2");
 	clk=0;inputA=16'd2;	opcode=4'b0111;#5;
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=16'd2;	opcode=4'b0111;#5;
@@ -311,7 +313,7 @@ module testbench();
 	
 	$display();
 	$display("----------------------------------------");
-	$display("Add Side1");
+	$display("Add Side 1");
 	clk=0;inputA=side1  ; opcode=4'b0100;#5;//Add operation
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=side1  ; opcode=4'b0100;#5;//Add operation
@@ -328,7 +330,7 @@ module testbench();
 	
 	$display();
 	$display("----------------------------------------");
-	$display("Add Side2");
+	$display("Add Side 2");
 	clk=0;inputA=side2  ; opcode=4'b0100;#5;//Add operation
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=side2  ; opcode=4'b0100;#5;//Add operation
@@ -336,13 +338,128 @@ module testbench();
 	
 	
 	$display("----------------------------------------");
-	$display("Perimter of a triangle, side1 = %d, base = %d, side2 = %d is%d",side1,base,side2,result);
+	$display("Perimter of a triangle, side 1 = %d, base = %d, side 2 = %d is%d",side1,base,side2,result);
+	
+
+	base1 = 10;
+	base2 = 30;
+	height = 15;
+
+	$display();
+	$display("----------------------------------------");
+	$display("Area of a Trapezoid, base 1 =%d, base 2 =%d, height =%d ", base1,base2, height);
+	$display("----------------------------------------");
+	$display("No-Op");
+	$display("Clk | inputA | opcode | result | error");
+	clk=0;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
 	
+	$display();
+	$display("----------------------------------------");
+	$display("Reset");
+	clk=0;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("----------------------------------------");
+	$display("Add Base 1");
+	clk=0;inputA=base1  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=base1  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
+	$display();
+	$display("----------------------------------------");
+	$display("Add Base 2");
+	clk=0;inputA=base2  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=base2  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("----------------------------------------");
+	$display("Divide By 2");
+	clk=0;inputA=16'd2  ; opcode=4'b0111;#5;//Divide operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd2  ; opcode=4'b0111;#5;//Divide operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("----------------------------------------");
+	$display("Multiply By Height");
+	clk=0;inputA=height  ; opcode=4'b0110;#5;//Multiply operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=height  ; opcode=4'b0110;#5;//Multiply operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
+	$display();
+	$display("Area of a Trapezoid, base 1 =%d, base 2 =%d, height =%d  is %d", base1,base2, height, result);
+
+	base1 = 200;
+	base2 = 400;
+	side1 = 600;
+	side2 = 100;
+
+	$display();
+	$display("----------------------------------------");
+	$display("Perimiter of a Trapezoid, base 1 =%d, base 2 =%d, side 1 =%d, side 2 = %d ", base1,base2,side1,side2);
+	$display("----------------------------------------");
+	$display("No-Op");
+	$display("Clk | inputA | opcode | result | error");
+	clk=0;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+
+	$display();
+	$display("----------------------------------------");
+	$display("Reset");
+	clk=0;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("----------------------------------------");
+	$display("Add Base 1");
+	clk=0;inputA=base1  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=base1  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
-	
+	$display();
+	$display("----------------------------------------");
+	$display("Add Base 2");
+	clk=0;inputA=base2  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=base2  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("----------------------------------------");
+	$display("Add Side 1");
+	clk=0;inputA=side1  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=side1  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("----------------------------------------");
+	$display("Add Side 2");
+	clk=0;inputA=side2  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=side2  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("Perimeter of a Trapezoid, base 1 =%d, base 2 =%d, side 1 =%d, side2 =%d  is %d", base1,base2,side1,side2,result);
+
 	/*
 	This was just me verifying that the logic operations are still working properly
 	//---------------------------------	
