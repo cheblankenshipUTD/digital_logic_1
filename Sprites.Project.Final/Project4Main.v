@@ -35,6 +35,7 @@ module breadboard(clk,inputA, opcode, result, error);
 	wire [31:0] b;
 	wire [15:0] unknown;
 
+	
 
 //=======================================================
 //
@@ -207,12 +208,21 @@ module testbench();
    reg [31:0] fraction;
   
   
+
+   
 	reg [15:0] base;
+	reg [15:0] length;
+	reg [15:0] width;
 	reg [15:0] height;
    	reg [15:0] side1;
    	reg [15:0] side2;
 	reg [15:0] base1;
 	reg [15:0] base2;
+	
+	
+	
+	
+	
 //====================================================
 //
 // Create Breadboard
@@ -231,6 +241,130 @@ module testbench();
 
 
 	initial begin//Start Stimulous Thread
+	
+	
+	
+	base = 24;
+	
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Volume of a cube, base =%d", base);
+	$display("----------------------------------------");
+	$display("No-Op");
+	$display("Clk | inputA | opcode | result | error");
+	clk=0;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Reset");
+	clk=0;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Add Base");
+	clk=0;inputA=base  ; opcode=4'b0100;#5;//Add 4 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=length  ; opcode=4'b0100;#5;//Add 4 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Multiply by Base");
+	clk=0;inputA=base ; opcode=4'b0110;#5;//Multiply by R 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=base ; opcode=4'b0110;#5;//Multiply by R 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Multiply by base");
+	clk=0;inputA=base ; opcode=4'b0110;#5;//Multiply by R 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=base ; opcode=4'b0110;#5;//Multiply by R 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	
+	$display("----------------------------------------");
+	$display("Volume of a cube, base =%d,  is %d",base,result);
+	
+	
+	
+	
+	length = 16;
+	width = 24;
+	height =54;
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Volume of a triangular prism, length =%d, width =%d, and height =%d", length, width, height);
+	$display("----------------------------------------");
+	$display("No-Op");
+	$display("Clk | inputA | opcode | result | error");
+	clk=0;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Reset");
+	clk=0;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Add Length");
+	clk=0;inputA=length  ; opcode=4'b0100;#5;//Add 4 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=length  ; opcode=4'b0100;#5;//Add 4 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Multiply by width");
+	clk=0;inputA=width ; opcode=4'b0110;#5;//Multiply by R 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=width ; opcode=4'b0110;#5;//Multiply by R 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Multiply by height");
+	clk=0;inputA=height ; opcode=4'b0110;#5;//Multiply by R 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=height ; opcode=4'b0110;#5;//Multiply by R 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Divide by 2");
+	clk=0;inputA=16'd2;	opcode=4'b0111;#5;
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd2;	opcode=4'b0111;#5;
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	
+	
+	$display("----------------------------------------");
+	$display("Volume of a triangular prism, length =%d, width =%d, and height =%d is %d",length,width,height,result);
+	
+	
+
 	
 	
 	base = 10;
@@ -267,7 +401,7 @@ module testbench();
 	
 	$display();
 	$display("----------------------------------------");
-	$display("Multiply By Height");
+	$display("Multiply by Height");
 	clk=0;inputA=height ; opcode=4'b0110;#5;//Multiply by R 
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=height ; opcode=4'b0110;#5;//Multiply by R 
@@ -275,7 +409,7 @@ module testbench();
 	
 	$display();
 	$display("----------------------------------------");
-	$display("Divide By 2");
+	$display("Divide by 2");
 	clk=0;inputA=16'd2;	opcode=4'b0111;#5;
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=16'd2;	opcode=4'b0111;#5;
@@ -313,7 +447,7 @@ module testbench();
 	
 	$display();
 	$display("----------------------------------------");
-	$display("Add Side 1");
+	$display("Add Side1");
 	clk=0;inputA=side1  ; opcode=4'b0100;#5;//Add operation
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=side1  ; opcode=4'b0100;#5;//Add operation
@@ -330,7 +464,7 @@ module testbench();
 	
 	$display();
 	$display("----------------------------------------");
-	$display("Add Side 2");
+	$display("Add Side2");
 	clk=0;inputA=side2  ; opcode=4'b0100;#5;//Add operation
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=side2  ; opcode=4'b0100;#5;//Add operation
@@ -338,9 +472,9 @@ module testbench();
 	
 	
 	$display("----------------------------------------");
-	$display("Perimter of a triangle, side 1 = %d, base = %d, side 2 = %d is%d",side1,base,side2,result);
+	$display("Perimter of a triangle, side1 = %d, base = %d, side2 = %d is%d",side1,base,side2,result);
 	
-
+	
 	base1 = 10;
 	base2 = 30;
 	height = 15;
@@ -459,9 +593,10 @@ module testbench();
 
 	$display();
 	$display("Perimeter of a Trapezoid, base 1 =%d, base 2 =%d, side 1 =%d, side2 =%d  is %d", base1,base2,side1,side2,result);
-
+	
 	/*
-	This was just me verifying that the logic operations are still working properly
+	
+	// 
 	//---------------------------------	
 	$display();
 	clk=0;
@@ -493,7 +628,6 @@ module testbench();
 	opcode=4'b1010;//OR
 	#10;
 	$display("%b|%b|%b|%b|%b",clk,inputA,opcode,result,error);
-	
 	
 	
 	
