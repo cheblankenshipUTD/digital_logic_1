@@ -214,7 +214,7 @@ module testbench();
 	reg [15:0] length;
 	reg [15:0] width;
 	reg [15:0] height;
-   	reg [15:0] side1;
+	reg [15:0] side1;
    	reg [15:0] side2;
 	reg [15:0] base1;
 	reg [15:0] base2;
@@ -224,7 +224,9 @@ module testbench();
 	// Perimter of rectangle
 	reg [15:0] rectangleLength1;
 	reg [15:0] rectangleWidth1;
-	
+	//Perimeter of Parallelogram
+	reg [15:0] parallelogramLength;
+	reg [15:0] parallelogramWidth;
 	
 	
 	
@@ -247,8 +249,52 @@ module testbench();
 
 	initial begin//Start Stimulous Thread
 	
+	// Area of Square
 	
+	base = 20;
 	
+		
+	$display();
+	$display("----------------------------------------");
+		$display("Area of a square, base =%d", base);
+	$display("----------------------------------------");
+	$display("No-Op");
+	$display("Clk | inputA | opcode | result | error");
+	clk=0;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Reset");
+	clk=0;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Add Base");
+	clk=0;inputA=base  ; opcode=4'b0100;#5;//Add 4 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=length  ; opcode=4'b0100;#5;//Add 4 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Multiply by Base");
+	clk=0;inputA=base ; opcode=4'b0110;#5;//Multiply by R 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=base ; opcode=4'b0110;#5;//Multiply by R 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display("----------------------------------------");
+		$display("Area of a square, base =%d,  is %d",base,result);
+	
+		
+	// Volume of Cube
+		
 	base = 24;
 	
 	
@@ -270,7 +316,6 @@ module testbench();
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
-	
 	
 	$display();
 	$display("----------------------------------------");
@@ -296,16 +341,16 @@ module testbench();
 	clk=1;inputA=base ; opcode=4'b0110;#5;//Multiply by R 
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
-	
 	$display("----------------------------------------");
 	$display("Volume of a cube, base =%d,  is %d",base,result);
 	
 	
-	
+	// Volume of triangular prism
 	
 	length = 16;
 	width = 24;
 	height =54;
+		
 	
 	$display();
 	$display("----------------------------------------");
@@ -326,7 +371,6 @@ module testbench();
 	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
-	
 	$display();
 	$display("----------------------------------------");
 	$display("Add Length");
@@ -343,8 +387,6 @@ module testbench();
 	clk=1;inputA=width ; opcode=4'b0110;#5;//Multiply by R 
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
-	
-	
 	$display();
 	$display("----------------------------------------");
 	$display("Multiply by height");
@@ -352,8 +394,6 @@ module testbench();
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=height ; opcode=4'b0110;#5;//Multiply by R 
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
-	
-	
 	
 	$display();
 	$display("----------------------------------------");
@@ -363,14 +403,11 @@ module testbench();
 	clk=1;inputA=16'd2;	opcode=4'b0111;#5;
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
-	
-	
 	$display("----------------------------------------");
 	$display("Volume of a triangular prism, length =%d, width =%d, and height =%d is %d",length,width,height,result);
 	
 	
-
-	
+	// Area of triangle
 	
 	base = 10;
 	height = 45;
@@ -394,7 +431,6 @@ module testbench();
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
-	
 	
 	$display();
 	$display("----------------------------------------");
@@ -423,7 +459,8 @@ module testbench();
 	$display("----------------------------------------");
 	$display("Area of a triangle with base = %2d and height = %2d is %3d.",base,height,result);
 	
-	
+		
+	//Perimeter of triangle
 	
 	side1 = 7284;
 	base = 1812;
@@ -432,7 +469,7 @@ module testbench();
 
 	$display();
 	$display("----------------------------------------");
-	$display("Perimter of a triangle, side1 = %d, base = %d, side2 = %d",side1, base, side2);
+	$display("Perimeter of a triangle, side1 = %d, base = %d, side2 = %d",side1, base, side2);
 	$display("----------------------------------------");
 	$display("No-Op");
 	$display("Clk | inputA | opcode | result | error");
@@ -448,7 +485,6 @@ module testbench();
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
-	
 	
 	$display();
 	$display("----------------------------------------");
@@ -466,7 +502,6 @@ module testbench();
 	clk=1;inputA=base  ; opcode=4'b0100;#5;//Add 4 
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
-	
 	$display();
 	$display("----------------------------------------");
 	$display("Add Side2");
@@ -475,10 +510,10 @@ module testbench();
 	clk=1;inputA=side2  ; opcode=4'b0100;#5;//Add operation
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
-	
 	$display("----------------------------------------");
 	$display("Perimter of a triangle, side1 = %d, base = %d, side2 = %d is%d",side1,base,side2,result);
 	
+	// Area of Trapezoid
 	
 	base1 = 10;
 	base2 = 30;
@@ -494,7 +529,6 @@ module testbench();
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
-	
 	
 	$display();
 	$display("----------------------------------------");
@@ -539,14 +573,18 @@ module testbench();
 	$display();
 	$display("Area of a Trapezoid, base 1 =%d, base 2 =%d, height =%d  is %d", base1,base2, height, result);
 
+		
+	// Perimeter of Trapezoid
+		
 	base1 = 200;
 	base2 = 400;
 	side1 = 600;
 	side2 = 100;
+		
 
 	$display();
 	$display("----------------------------------------");
-	$display("Perimiter of a Trapezoid, base 1 =%d, base 2 =%d, side 1 =%d, side 2 = %d ", base1,base2,side1,side2);
+	$display("Perimeter of a Trapezoid, base 1 =%d, base 2 =%d, side 1 =%d, side 2 = %d ", base1,base2,side1,side2);
 	$display("----------------------------------------");
 	$display("No-Op");
 	$display("Clk | inputA | opcode | result | error");
@@ -554,7 +592,6 @@ module testbench();
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	clk=1;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
-
 
 	$display();
 	$display("----------------------------------------");
@@ -599,9 +636,12 @@ module testbench();
 	$display();
 	$display("Perimeter of a Trapezoid, base 1 =%d, base 2 =%d, side 1 =%d, side2 =%d  is %d", base1,base2,side1,side2,result);
 	
+		
+	// Area of rectangle
 
 	rectangleLength0 = 111;
 	rectangleWidth0 = 22;
+		
 	
 	$display();
 	$display("----------------------------------------");
@@ -641,13 +681,16 @@ module testbench();
 	$display("----------------------------------------");
 	$display("Area of a rectangle, length = %d, width = %d is%d",rectangleLength0,rectangleWidth0,result);
 	
-
+		
+	// Perimeter of rectangle
+		
 	rectangleLength1 = 80;
 	rectangleWidth1 = 20;
+		
 
 	$display();
 	$display("----------------------------------------");
-	$display("Perimter of a rectangle, length = %d, width = %d",rectangleLength1,rectangleWidth1);
+	$display("Perimeter of a rectangle, length = %d, width = %d",rectangleLength1,rectangleWidth1);
 	$display("----------------------------------------");
 	$display("No-Op");
 	$display("Clk | inputA | opcode | result | error");
@@ -672,7 +715,6 @@ module testbench();
 	clk=1;inputA=rectangleLength1  ; opcode=4'b0100;#5;//Add operation
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
-
 	$display();
 	$display("----------------------------------------");
 	$display("Add width");
@@ -681,6 +723,58 @@ module testbench();
 	clk=1;inputA=rectangleWidth1  ; opcode=4'b0100;#5;//Add operation
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 	
+	$display();
+	$display("----------------------------------------");
+	$display("Multiply the current sum by 2");
+	clk=0;inputA=2 ; opcode=4'b0110;#5;//Multiply by 2
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=2 ; opcode=4'b0110;#5;//Multiply by 2 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display("----------------------------------------");
+	$display("Perimeter of a rectangle, length = %d, width = %d is%d",rectangleLength1,rectangleWidth1,result);
+	
+
+
+	// Perimeter of a parallelogram
+		
+	parallelogramLength = 40;
+	parallelogramWidth = 22;
+
+	$display();
+	$display("----------------------------------------");
+	$display("Perimeter of a Parallelogram, length = %d, width = %d",parallelogramLength,parallelogramWidth);
+	$display("----------------------------------------");
+	$display("No-Op");
+	$display("Clk | inputA | opcode | result | error");
+	clk=0;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("----------------------------------------");
+	$display("Reset");
+	clk=0;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Add length");
+	clk=0;inputA=parallelogramLength  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=parallelogramLength  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("----------------------------------------");
+	$display("Add width");
+	clk=0;inputA=parallelogramWidth  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=parallelogramWidth  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 
 	$display();
 	$display("----------------------------------------");
@@ -691,9 +785,8 @@ module testbench();
 	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
 
 	$display("----------------------------------------");
-	$display("Perimter of a rectangle, length = %d, width = %d is%d",rectangleLength1,rectangleWidth1,result);
+	$display("Perimeter of a Parallelogram, length = %d, width = %d is%d",parallelogramLength,parallelogramWidth,result);
 	
-
 
 	/*
 	
