@@ -218,7 +218,12 @@ module testbench();
    	reg [15:0] side2;
 	reg [15:0] base1;
 	reg [15:0] base2;
-	
+	// Area of rectangle
+	reg [15:0] rectangleLength0;
+	reg [15:0] rectangleWidth0;
+	// Perimter of rectangle
+	reg [15:0] rectangleLength1;
+	reg [15:0] rectangleWidth1;
 	
 	
 	
@@ -594,6 +599,102 @@ module testbench();
 	$display();
 	$display("Perimeter of a Trapezoid, base 1 =%d, base 2 =%d, side 1 =%d, side2 =%d  is %d", base1,base2,side1,side2,result);
 	
+
+	rectangleLength0 = 100;
+	rectangleWidth0 = 22;
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Area of a rectangle, length = %d, width = %d",rectangleLength0,rectangleWidth0);
+	$display("----------------------------------------");
+	$display("No-Op");
+	$display("Clk | inputA | opcode | result | error");
+	clk=0;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("----------------------------------------");
+	$display("Reset");
+	clk=0;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Add length");
+	clk=0;inputA=rectangleLength0  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=rectangleLength0  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("----------------------------------------");
+	$display("Multiply the current value (length) by width");
+	clk=0;inputA=rectangleWidth0 ; opcode=4'b0110;#5;//Multiply by width
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=rectangleWidth0 ; opcode=4'b0110;#5;//Multiply by width
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display("----------------------------------------");
+	$display("Area of a rectangle, length = %d, width = %d is%d",rectangleLength0,rectangleWidth0,result);
+	
+
+	rectangleLength1 = 80;
+	rectangleWidth1 = 20;
+
+	$display();
+	$display("----------------------------------------");
+	$display("Perimter of a rectangle, length = %d, width = %d",rectangleLength1,rectangleWidth1);
+	$display("----------------------------------------");
+	$display("No-Op");
+	$display("Clk | inputA | opcode | result | error");
+	clk=0;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; 	opcode=4'b0000;	#10;//No-Op
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display();
+	$display("----------------------------------------");
+	$display("Reset");
+	clk=0;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=16'd0  ; opcode=4'b0001;#5;//Reset 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+	$display();
+	$display("----------------------------------------");
+	$display("Add length");
+	clk=0;inputA=rectangleLength1  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=rectangleLength1  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+
+	$display();
+	$display("----------------------------------------");
+	$display("Add width");
+	clk=0;inputA=rectangleWidth1  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=rectangleWidth1  ; opcode=4'b0100;#5;//Add operation
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	
+
+	$display();
+	$display("----------------------------------------");
+	$display("Multiply the current sum by 2");
+	clk=0;inputA=2 ; opcode=4'b0110;#5;//Multiply by 2
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+	clk=1;inputA=2 ; opcode=4'b0110;#5;//Multiply by 2 
+	$display("%b|%d|%b|%d|%b",clk,inputA,opcode,result,error);
+
+	$display("----------------------------------------");
+	$display("Perimter of a rectangle, length = %d, width = %d is%d",rectangleLength1,rectangleWidth1,result);
+	
+
+
 	/*
 	
 	// 
