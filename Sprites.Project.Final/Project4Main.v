@@ -600,7 +600,7 @@ module testbench();
 	$display("Perimeter of a Trapezoid, base 1 =%d, base 2 =%d, side 1 =%d, side2 =%d  is %d", base1,base2,side1,side2,result);
 	
 
-	rectangleLength0 = 100;
+	rectangleLength0 = 111;
 	rectangleWidth0 = 22;
 	
 	$display();
