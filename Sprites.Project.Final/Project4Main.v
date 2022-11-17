@@ -35,7 +35,6 @@ module breadboard(clk,inputA, opcode, result, error);
 	wire [31:0] b;
 	wire [15:0] unknown;
 
-	
 
 //=======================================================
 //
@@ -345,6 +344,7 @@ module testbench();
 	
 	
 	/*
+	This was just me verifying that the logic operations are still working properly
 	//---------------------------------	
 	$display();
 	clk=0;
@@ -366,27 +366,17 @@ module testbench();
 	inputA=16'b1010101010101010;
 	opcode=4'b1010;//OR
 	#10;
-$display("%b|%b|%b|%b|%b",clk,inputA,opcode,result,error);
+	$display("%b|%b|%b|%b|%b",clk,inputA,opcode,result,error);
 		
 		
 		
-		$display();
+	$display();
 	clk=1;
 	inputA=16'b1010101010101010;
 	opcode=4'b1010;//OR
 	#10;
-$display("%b|%b|%b|%b|%b",clk,inputA,opcode,result,error);
+	$display("%b|%b|%b|%b|%b",clk,inputA,opcode,result,error);
 	
-	
-	
-	inputA=16'b1111111111111111;
-	opcode=4'b1010;//OR
-	#10;
-	
-	
-	inputA=16'b1111111100000000;
-	opcode=4'b1011;//XOR
-	#10;
 	
 	
 	
